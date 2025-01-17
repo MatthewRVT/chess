@@ -7,9 +7,38 @@ package chess;
  * signature of the existing methods.
  */
 public class ChessBoard {
+    // private ChessPosition[][] board;
+    private ChessPiece[][] board;
+    private int PieceCount = 32;
+
+    void Setup() {
+        GenerateOthers(ChessGame.TeamColor.WHITE, 0);
+        GeneratePawns(ChessGame.TeamColor.WHITE, 1);
+        GenerateOthers(ChessGame.TeamColor.BLACK, 7);
+        GeneratePawns(ChessGame.TeamColor.BLACK, 6);
+    }
+
+    void GeneratePawns(ChessGame.TeamColor pieceColor, int row) {
+        for (int i = 0; i < 8; i++) {
+            board[row][i] = new ChessPiece(pieceColor, ChessPiece.PieceType.PAWN);
+        }
+    }
+
+    void GenerateOthers(ChessGame.TeamColor pieceColor, int row) {
+        board[row][0] = new ChessPiece(pieceColor, ChessPiece.PieceType.ROOK);
+        board[row][1] = new ChessPiece(pieceColor, ChessPiece.PieceType.KNIGHT);
+        board[row][2] = new ChessPiece(pieceColor, ChessPiece.PieceType.BISHOP);
+        board[row][3] = new ChessPiece(pieceColor, ChessPiece.PieceType.QUEEN);
+        board[row][4] = new ChessPiece(pieceColor, ChessPiece.PieceType.KING);
+        board[row][5] = new ChessPiece(pieceColor, ChessPiece.PieceType.BISHOP);
+        board[row][6] = new ChessPiece(pieceColor, ChessPiece.PieceType.KNIGHT);
+        board[row][7] = new ChessPiece(pieceColor, ChessPiece.PieceType.ROOK);
+    }
 
     public ChessBoard() {
-        
+        Setup();
+
+
     }
 
     /**
@@ -19,7 +48,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        throw new RuntimeException("Not implemented");
+        board[position.getRow()][position.getColumn()] = piece;
     }
 
     /**
@@ -30,7 +59,7 @@ public class ChessBoard {
      * position
      */
     public ChessPiece getPiece(ChessPosition position) {
-        throw new RuntimeException("Not implemented");
+        return board[position.getRow()][position.getColumn()];
     }
 
     /**
@@ -38,6 +67,7 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
-        throw new RuntimeException("Not implemented");
+        Setup();
+        //also add a for loop to wipe all the middle tiles to null I think
     }
 }
