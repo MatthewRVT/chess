@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -51,6 +52,26 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        throw new RuntimeException("Not implemented");
+        ChessPiece piece = board.board[myPosition.getRow()][myPosition.getColumn()];
+        int col = myPosition.getColumn();
+        int row = myPosition.getColumn();
+        type = piece.getPieceType();
+        switch (type){
+            case PAWN: {
+                ArrayList<ChessMove> myMoves = new ArrayList<ChessMove>();
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), type));
+                if (!(col == 1)){
+                    if (!(board.getPiece(new ChessPosition(row + 1, col + 1)) == null)) {
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col + 1), type));
+                        if (!(board.getPiece(new ChessPosition(row + 1, col - 1)) == null)) {
+                            myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col - 1), type));
+                    }
+                }
+                if ()
+                //will need to check if on the edges of the board for capturing
+
+            }
+
+        }
     }
 }

@@ -8,8 +8,7 @@ package chess;
  */
 public class ChessBoard {
     // private ChessPosition[][] board;
-    private ChessPiece[][] board;
-    private int PieceCount = 32;
+    public ChessPiece[][] board = new ChessPiece[8][8];
 
     void Setup() {
         GenerateOthers(ChessGame.TeamColor.WHITE, 0);
@@ -37,7 +36,6 @@ public class ChessBoard {
 
     public ChessBoard() {
         Setup();
-
 
     }
 
@@ -67,6 +65,7 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
+        board = new ChessPiece[8][8];
         Setup();
         //also add a for loop to wipe all the middle tiles to null I think
     }
