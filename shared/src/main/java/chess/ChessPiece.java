@@ -3,6 +3,8 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import chess.ChessGame.TeamColor;
+
 /**
  * Represents a single chess piece
  * <p>
@@ -53,23 +55,71 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         ChessPiece piece = board.board[myPosition.getRow()][myPosition.getColumn()];
+        int teamMod = 1;
         int col = myPosition.getColumn();
         int row = myPosition.getColumn();
         type = piece.getPieceType();
-        switch (type){
+        team = piece.getTeamColor();
+        if (team == TeamColor.BLACK){
+            teamMod = -1;
+        }
+        ArrayList<ChessMove> myMoves = new ArrayList<ChessMove>();
+        switch (type) {
             case PAWN: {
-                ArrayList<ChessMove> myMoves = new ArrayList<ChessMove>();
-                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), type));
-                if (!(col == 1)){
-                    if (!(board.getPiece(new ChessPosition(row + 1, col + 1)) == null)) {
-                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col + 1), type));
-                        if (!(board.getPiece(new ChessPosition(row + 1, col - 1)) == null)) {
-                            myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col - 1), type));
+                //checks if there is a piece in the way otherwise moves 1 forward
+                if (board.getPiece(new ChessPosition(row + teamMod, col)) == null) {
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), type));
+                }
+                // checks if you can move 2 and if there is someone in the way or not for fow 2
+                if (row == 2) {
+                    if (team == TeamColor.WHITE && board.getPiece(new ChessPosition(row + teamMod, col)) == null && board.getPiece(new ChessPosition(row + 2, col)) == null) {
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 2, col), type));
+                    }
+                    else if (board.getPiece(new ChessPosition(row + teamMod, col)) == null){
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + -1, col), PieceType.ROOK));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + -1, col), PieceType.BISHOP));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + -1, col), PieceType.KNIGHT));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + -1, col), PieceType.QUEEN));
                     }
                 }
-                if ()
+                if (col == 7) {
+                    if (team == TeamColor.BLACK && board.getPiece(new ChessPosition(row + teamMod, col)) == null && board.getPiece(new ChessPosition(row - 2, col)) == null) {
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row - 2, col), type));
+                    }
+                    else if (board.getPiece(new ChessPosition(row + teamMod, col)) == null){
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), PieceType.ROOK));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), PieceType.BISHOP));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), PieceType.KNIGHT));
+                        myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), PieceType.QUEEN));
+                    }
+                }
+                if (!(board.getPiece(new ChessPosition(row + teamMod, col + 1)) == null)) {
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(row + teamMod, col + 1), type));
+                }
+                if (!(board.getPiece(new ChessPosition(row + teamMod, col - 1)) == null)) {
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(row + teamMod, col - 1), type));
+                }
                 //will need to check if on the edges of the board for capturing
+                return myMoves;
 
+            }
+            case ROOK: {
+                return myMoves;
+            }
+            case BISHOP: {
+                return myMoves;
+            }
+            case QUEEN: {
+                return myMoves;
+            }
+            case KNIGHT: {
+                return myMoves;
+            }
+            case KING: {
+                return myMoves;
+            }
+            default: {
+                return myMoves;
             }
 
         }
