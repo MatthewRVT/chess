@@ -66,6 +66,7 @@ public class ChessPiece {
         ArrayList<ChessMove> myMoves = new ArrayList<ChessMove>();
         switch (type) {
             case PAWN: {
+                //NOTE did promotion wrong will need to fix
                 //checks if there is a piece in the way otherwise moves 1 forward
                 if (board.getPiece(new ChessPosition(row + teamMod, col)) == null) {
                     myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col), type));

@@ -20,7 +20,7 @@ public class ChessPosition {
      * 1 codes for the bottom row
      */
     public int getRow() {
-        return this.row + 1;
+        return this.row - 1;
     }
 
     /**
@@ -28,7 +28,7 @@ public class ChessPosition {
      * 1 codes for the left row
      */
     public int getColumn() {
-        return this.col + 1;
+        return this.col - 1;
     }
 
 }
