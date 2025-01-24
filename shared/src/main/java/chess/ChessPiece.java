@@ -104,6 +104,19 @@ public class ChessPiece {
 
             }
             case ROOK: {
+                // doesn't check if blocked at the moment
+                for (int newCol = col; newCol < 7; newCol++){
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(row, newCol), type));
+                }
+                for (int newCol = col; newCol > 2 ; newCol--){
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(row, newCol), type));
+                }
+                for (int newRow = row; newRow < 7; newRow++){
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(newRow, col), type));
+                }
+                for (int newRow = row; newRow > 2; newRow--){
+                    myMoves.add(new ChessMove(myPosition, new ChessPosition(newRow, col), type));
+                }
                 return myMoves;
             }
             case BISHOP: {
@@ -113,6 +126,16 @@ public class ChessPiece {
                 return myMoves;
             }
             case KNIGHT: {
+                //doesn't yet check if the attempted captured piece is friendly nor if it would go off the board or if the spot is occupied
+
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 2, col - 1), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 2, col - 1), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row - 2, col - 1), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row - 2, col + 1), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col - 2), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row + 1, col - 2), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row - 1, col - 2), type));
+                myMoves.add(new ChessMove(myPosition, new ChessPosition(row - 1, col + 2), type));
                 return myMoves;
             }
             case KING: {
